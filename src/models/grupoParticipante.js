@@ -34,6 +34,19 @@ class GrupoParticipantesDAO {
         }
     }
 
+    static async removerParticipante(grupo, user) {
+        const sql = `delete from grupoParticipantes where grupo = $1 and user = $2`;
+        const values = [grupo, user];
+
+        try {
+            await dbcon.query(sql, values);
+        } catch (error) {
+            console.log('NAO FOI POSSIVEL EXCLUIR');
+            console.log({ error });
+            return false;
+        }
+    }
+
     static async adicionarUser(user, grupo, tipo) {
         const sql = 'INSERT INTO public.grupoParticipantes (user, grupo, tipo) VALUES ($1, $2, $3);';
         const values = [user, grupo, tipo];

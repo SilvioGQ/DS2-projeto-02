@@ -11,7 +11,6 @@ class Filme {
 
 // DAO = DATA ACCESS OBJECT
 class FilmeDAO {
-
     static async buscaPeloId(id) {
         const sql = 'SELECT * FROM filmes where id = $1';
         const result = await dbcon.query(sql, [id]);
