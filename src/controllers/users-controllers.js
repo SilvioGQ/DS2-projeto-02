@@ -1,37 +1,28 @@
 const bcrypt = require('bcrypt');
-
-const users = [];
+const { User, UserDAO } = require('../models/user');
 
 class UsersController {
     async cadastrar(req, res) {
         console.log('UsersController/cadastrar');
 
-        const userBody = req.body;
-        const senha = bcrypt.hashSync(userBody.senha, 10); 
+        const { nome, email, senha, imagem } = req.body;
+        const novaSenha = bcrypt.hashSync(senha, 10); 
         
-        const user = {
-            nome: userBody.nome,
-            email: userBody.email,
-            senha      
-        }
+        const user = new User(null, nome, email, novaSenha, imagem, null);
+        const cadastro = await UserDAO.cadastrar(user);
 
-        users.push(user);  // salvando no banco
-
-        console.log({ users });
         res.redirect('/');
     }
 
     async login(req, res) {
-        // ACHAR COM O EMAIL CERTO
         const { email, senha } = req.body;
-        const usuarioEcontrado = users.find(u => u.email == email);
+        
+        const user = await UserDAO.buscaPeloEmail(email);
+        if (!user) return res.send('User nao encontrado');
 
-        if (!usuarioEcontrado) return res.send('User nao encontrado');
-
-        // VERIFICAR A SENHA
-        const confere = bcrypt.compareSync(senha, usuarioEcontrado.senha);
+        const confere = bcrypt.compareSync(senha, user.senha);
         if (confere) {
-            req.session.user = usuarioEcontrado;
+            req.session.user = user;
             return res.send('Usuario e senha confirmados, vc fez o login');
         } else {
             return res.send('Senha nao confere...');

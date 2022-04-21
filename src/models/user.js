@@ -13,14 +13,21 @@ class User {
 
 class UserDAO {
     static async buscaPeloId(id) {
-        const sql = 'SELECT * FROM user where id = $1';
+        const sql = 'SELECT * FROM public."user" where id = $1';
         const result = await dbcon.query(sql, [id]);
         const user = result.rows[0];
         return user;
     }
 
+    static async buscaPeloEmail(email) {
+        const sql = 'SELECT * FROM public."user" where email = $1';
+        const result = await dbcon.query(sql, [email]);
+        const user = result.rows[0];
+        return user;
+    }
+
     static async atualiza(user) {
-        const sql = `UPDATE user
+        const sql = `UPDATE public."user"
             SET nome = $2, 
                 email = $3,
                 senha = $4,
@@ -38,11 +45,12 @@ class UserDAO {
     }
 
     static async cadastrar(user) {
-        const sql = 'INSERT INTO public.user (nome, email, senha, imagem) VALUES ($1, $2, $3, $4);';
+        const sql = 'INSERT INTO public."user" (nome, email, senha, imagem) VALUES ($1, $2, $3, $4);';
         const values = [user.nome, user.email, user.senha, user.imagem];
         
         try {
             await dbcon.query(sql, values);
+            return true;
         } catch (error) {
             console.log('NAO FOI POSSIVEL INSERIR');
             console.log({ error });
