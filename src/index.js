@@ -38,7 +38,7 @@ app.use('*', (req, res, next) => {
 })
 
 app.get('/', (req, res) => {
-    res.redirect('/filmes');
+    res.redirect('/login.html');
 });
 
 const filmesRoutes = require('./routes/filmes-routes');
@@ -59,4 +59,6 @@ console.log(dbcon);
 
 const PORT = process.env.PORT;
 console.log({PORT});
-app.listen(PORT, () => console.log(`Server iniciado na porta ${PORT}`));
+
+if(PORT) app.listen(PORT, () => console.log(`Server iniciado na porta ${PORT}`));
+else app.listen(3000, () => console.log(`Server iniciado na porta 3000`));
