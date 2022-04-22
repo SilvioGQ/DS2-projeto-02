@@ -12,14 +12,14 @@ class GrupoParticipantes {
 
 class GrupoParticipantesDAO {
     static async buscaPeloGrupo(grupo) {
-        const sql = 'SELECT * FROM grupoParticipantes where grupo = $1';
+        const sql = 'SELECT * FROM public."grupoParticipantes" where grupo = $1';
         const result = await dbcon.query(sql, [grupo]);
         const grupo = result.rows[0];
         return grupo;
     }
 
     static async atualizaParticipante(grupo, user) {
-        const sql = `UPDATE grupoParticipantes
+        const sql = `UPDATE public."grupoParticipantes"
             SET user = $2, 
                 tipo = $3
             WHERE grupo = $1;`;
@@ -35,7 +35,7 @@ class GrupoParticipantesDAO {
     }
 
     static async removerParticipante(grupo, user) {
-        const sql = `delete from grupoParticipantes where grupo = $1 and user = $2`;
+        const sql = `delete from public."grupoParticipantes" where grupo = $1 and user = $2`;
         const values = [grupo, user];
 
         try {
@@ -48,7 +48,7 @@ class GrupoParticipantesDAO {
     }
 
     static async adicionarUser(user, grupo, tipo) {
-        const sql = 'INSERT INTO public.grupoParticipantes (user, grupo, tipo) VALUES ($1, $2, $3);';
+        const sql = 'INSERT INTO public."grupoParticipantes" (user, grupo, tipo) VALUES ($1, $2, $3);';
         const values = [user, grupo, tipo];
         
         try {
