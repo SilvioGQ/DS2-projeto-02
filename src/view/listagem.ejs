@@ -2,23 +2,32 @@
 <html lang="en">
 
 <%- include('includes/head') %>
+  <link rel="stylesheet" href="/css/listagem.css">
 
-<body>
+  <body>
 
-    <%- include('includes/navbar') %>    
-
-    <h2 style="margin-left: 20px;">Seus grupos</h2>
-    <div>
-    <% if (grupos) { %>
-      <% grupos.map(item => { %>
-        <div style="margin-top: 30px;">
-        <div style="margin-left: 20px; background-image: url('<%- item.imagem %>');" class="imageGroup-<% item.id %>" id="imageGroup" >
-        <p  style="margin-left: 120px; position: absolute; align-self: center;""><%= item.nome %></p>
-      </div>
-      <% }); %>
-    <% } %>
-  </div>
-
-</body>
+    <%- include('includes/navbar') %>
+      <main id="containerGrid">
+        <div id="gridGroup">
+          <h2 style="margin-left: 5%;">Seus grupos</h2>
+          <div>
+            <% if (grupos) { %>
+              <% grupos.map(item=> { %>
+                <div style="margin-top: 30px; cursor: pointer;">
+                  <div style="margin-left: 5%; background-image: url('<%- item.imagem %>');"
+                    class="imageGroup-<% item.id %>" id="imageGroup">
+                    <p style="margin-left: 100px; margin-top: 30px; position: absolute; align-self: center;""><%= item.nome %></p>
+                  </div>
+              </div>
+            <% }); %>
+            <% } %>
+          </div>
+        </div>
+        <div id="gridChat">
+            <img src="../images/bigChat.png" style="height: 292px; width: 288px;">
+            <p style="margin-top: 30px; font-size: 1.2rem;">Escolha um grupo para conversar, ou crie um novo!</p>
+        </div>
+      </main>
+  </body>
 
 </html>

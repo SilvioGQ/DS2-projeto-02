@@ -47,10 +47,14 @@ body {
     color: white;
   }
   #imageGroup {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background-position: center;
     background-size: cover;
     transition: all ease 0.2s;
-    border-radius: 75px;
+    border-radius: 45px;
+    @media(max-width: 1400px){
+      width: 60px;
+      height: 60px;
+    }
 }
