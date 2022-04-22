@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const GruposController = require('../controllers/grupo-controllers');
-const { middlewareUser } = require('../middlewares/middlewares');
+const { middlewareUser, middlewareParticipant } = require('../middlewares/middlewares');
 
 const routes = Router();
 
@@ -12,7 +12,7 @@ const gruposController = new GruposController();
 
 routes.get('/', middlewareUser, gruposController.listagem);
 
-// routes.get('/:id', gruposController.detalhar);
+routes.get('/:id/:page', middlewareParticipant, gruposController.detalhar);
 
 // routes.post('/', gruposController.cadastrar);
 

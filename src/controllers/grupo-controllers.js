@@ -19,6 +19,7 @@ class GruposController {
         const participantes = await GrupoParticipantesDAO.participantesGrupo(id);
         const mensagens = await MensagemDAO.mensagensGrupo(id, page);
         console.log('grupos ',grupos);
+        console.log('grupo ',grupo);
         
         return res.render('detalhar', { user: req.session.user, grupos: grupos, grupo: grupo, participantes: participantes, mensagens: mensagens });
     }

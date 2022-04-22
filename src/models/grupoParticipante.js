@@ -15,10 +15,11 @@ class GrupoParticipantesDAO {
         const sql = `SELECT 
             "user".id as userId, 
             "user".nome as nome, 
-            "user".imagem as image,
+            "user".imagem as imagem,
             "user".dataregister as userDataregister,
             "grupoParticipantes".id as partId, 
             "grupoParticipantes".grupo as grupo, 
+            "grupoParticipantes".tipo as tipo, 
             "grupoParticipantes".dataregister as partDataregister
         FROM public."grupoParticipantes"
             JOIN public."user" on public."grupoParticipantes".user = public."user".id

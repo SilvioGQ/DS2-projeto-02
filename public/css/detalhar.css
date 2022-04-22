@@ -1,0 +1,47 @@
+#containerGrid {    
+    display: grid;
+    grid-template-areas: 
+                         "group       chat       participantes      "
+                         "group       chat       participantes      "
+    ;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-bottom: 3vh;
+    grid-template-columns: 1fr 4fr;
+    grid-column-gap: 0.5vw;
+}
+
+#gridChat {
+    grid-area: chat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 5vh;
+    height: 80vh;
+}
+
+#gridGroup {
+    grid-area: group;
+    border-right: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 5vh;
+    height: 80vh;
+}
+
+#gridParticipantes {
+    grid-area: participantes;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    margin-top: 5vh;
+    height: 80vh;
+}

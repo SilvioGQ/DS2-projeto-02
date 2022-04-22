@@ -19,8 +19,8 @@ class GrupoDAO {
     }
 
     static async exibirParticipa(user) {
-        const sql = `SELECT * FROM public.grupo
-            JOIN public."grupoParticipantes" on public.grupo.id = public."grupoParticipantes".grupo
+        const sql = `SELECT public.grupo.id as grupoId, * FROM public."grupoParticipantes"
+            JOIN public.grupo on public.grupo.id = public."grupoParticipantes".grupo
         WHERE 
             public."grupoParticipantes".user = $1`;
         const result = await dbcon.query(sql, [user]);
@@ -31,7 +31,7 @@ class GrupoDAO {
     static async detalhar(id) {
         const sql = 'SELECT * FROM public.grupo WHERE id = $1';
         const result = await dbcon.query(sql, [id]);
-        const grupo = result.rows;
+        const grupo = result.rows[0];
         return grupo;
     }
 

@@ -13,18 +13,23 @@
           <div>
             <% if (grupos) { %>
               <% grupos.map(item=> { %>
-                <div style="margin-top: 30px; cursor: pointer;">
-                  <div style="margin-left: 5%; background-image: url('<%- item.imagem %>');"
-                    class="imageGroup-<% item.id %>" id="imageGroup">
-                    <p style="margin-left: 100px; margin-top: 30px; position: absolute; align-self: center;""><%= item.nome %></p>
+                <a href="grupos/<%= item.grupoid %>/1">
+                  <div style="margin-top: 30px; cursor: pointer;">
+                    <div style="margin-left: 5%; background-image: url('<%- item.imagem %>');"
+                      class="imageGroup-<% item.id %>" id="imageGroup">
+                      <p style="margin-left: 100px; margin-top: 30px; position: absolute; align-self: center;"">
+                        <%= item.grupoid %>
+                        <%= item.nome %>
+                      </p>
+                    </div>
                   </div>
-              </div>
+                </a>
             <% }); %>
             <% } %>
           </div>
         </div>
         <div id="gridChat">
-            <img src="../images/bigChat.png" style="height: 292px; width: 288px;">
+            <img src="/assets/chatIcon.svg" style="height: 292px; width: 288px;">
             <p style="margin-top: 30px; font-size: 1.2rem;">Escolha um grupo para conversar, ou crie um novo!</p>
         </div>
       </main>
