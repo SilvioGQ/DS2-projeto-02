@@ -8,22 +8,10 @@
 /* Header */
 header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-left: 10px;
-    flex-direction: row;
     padding-top: 15px;
     padding-bottom: 15px;
 }
-
-#header-title {
-    margin-left: 10px;
-}
-
-#header-title h1 {
-    color:#fff
-}
-
 #nav-title {
     margin-right: auto;
     font-size: 1.5em;
@@ -31,6 +19,7 @@ header {
 
 body {
     background-color: #23272A;
+    color: white;
 }
 
 #filmes {
@@ -57,4 +46,11 @@ body {
     background-color: #04AA6D;
     color: white;
   }
-  
+  #imageGroup {
+    width: 100px;
+    height: 100px;
+    background-position: center;
+    background-size: cover;
+    transition: all ease 0.2s;
+    border-radius: 75px;
+}

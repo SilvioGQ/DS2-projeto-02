@@ -26,9 +26,6 @@ app.use(express.static('public'));
 
 app.use('*', (req, res, next) => {
     console.log(`Request recebido para ${req.baseUrl} as ${new Date()}`);
-
-    // atrasando o usuario kkkkk
-    // setTimeout(() => next(), 1000);
     next();
 })
 
@@ -36,8 +33,8 @@ app.get('/', (req, res) => {
     res.redirect('/login.html');
 });
 
-// const filmesRoutes = require('./routes/filmes-routes');
-// app.use('/filmes', filmesRoutes);
+const gruposRoutes = require('./routes/grupos-routes');
+app.use('/grupos', gruposRoutes);
 
 const usersRoutes = require('./routes/users-routes');
 app.use('/users', usersRoutes);

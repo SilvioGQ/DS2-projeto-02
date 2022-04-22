@@ -11,15 +11,32 @@ class Grupo {
 }
 
 class GrupoDAO {
+    static async exibirTodos() {
+        const sql = 'SELECT * FROM public.grupo';
+        const result = await dbcon.query(sql);
+        const grupos = result.rows;
+        return grupos;
+    }
+
     static async buscaPeloId(id) {
-        const sql = 'SELECT * FROM grupo where id = $1';
+        const sql = 'SELECT * FROM public.grupo where id = $1';
         const result = await dbcon.query(sql, [id]);
         const grupo = result.rows[0];
         return grupo;
     }
 
+    static async exibirParticipa(user) {
+        const sql = `SELECT * FROM public."grupoParticipantes"
+            JOIN public.grupo on public."grupoParticipantes".grupo = public.grupo.id
+            WHERE
+                public."grupoParticipantes".user = $1`;
+        const result = await dbcon.query(sql, [user]);
+        const grupos = result.rows;
+        return grupos;
+    }
+
     static async atualiza(grupo) {
-        const sql = `UPDATE grupo
+        const sql = `UPDATE public.grupo
             SET nome = $2, 
                 admin = $3,
                 imagem = $4
