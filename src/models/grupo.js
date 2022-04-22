@@ -18,21 +18,28 @@ class GrupoDAO {
         return grupos;
     }
 
+    static async exibirParticipa(user) {
+        const sql = `SELECT * FROM public.grupo
+            JOIN public."grupoParticipantes" on public.grupo.id = public."grupoParticipantes".grupo
+        WHERE 
+            public."grupoParticipantes".user = $1`;
+        const result = await dbcon.query(sql, [user]);
+        const grupos = result.rows;
+        return grupos;
+    }
+
+    static async detalhar(id) {
+        const sql = 'SELECT * FROM public.grupo WHERE id = $1';
+        const result = await dbcon.query(sql, [id]);
+        const grupo = result.rows;
+        return grupo;
+    }
+
     static async buscaPeloId(id) {
         const sql = 'SELECT * FROM public.grupo where id = $1';
         const result = await dbcon.query(sql, [id]);
         const grupo = result.rows[0];
         return grupo;
-    }
-
-    static async exibirParticipa(user) {
-        const sql = `SELECT * FROM public."grupoParticipantes"
-            JOIN public.grupo on public."grupoParticipantes".grupo = public.grupo.id
-            WHERE
-                public."grupoParticipantes".user = $1`;
-        const result = await dbcon.query(sql, [user]);
-        const grupos = result.rows;
-        return grupos;
     }
 
     static async atualiza(grupo) {

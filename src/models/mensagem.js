@@ -18,23 +18,18 @@ class MensagemDAO {
         return user;
     }
 
-    // static async atualiza(user) {
-    //     const sql = `UPDATE mensagem
-    //         SET nome = $2, 
-    //             email = $3,
-    //             senha = $4,
-    //             imagem = $5
-    //         WHERE id = $1;`;
-    //     const values = [user.id, user.nome, user.email, user.senha, user.imagem];
-        
-    //     try {
-    //         await dbcon.query(sql, values);
-    //         return true;
-    //     } catch (error) {
-    //         console.log({ error });
-    //         return false;
-    //     }
-    // }
+    static async mensagensGrupo(grupo, page) {
+        const sql = `SELECT * FROM public.mensagem
+                JOIN public."user" on public.mensagem.user = public."user".id
+            WHERE 
+                grupo = $1
+            ORDER BY DATA DESC
+            LIMIT 10
+            OFFSET $2`;
+        const result = await dbcon.query(sql, [grupo, ((page*10)-10)]);
+        const mensagens = result.rows;
+        return mensagens;
+    }
 
     static async enviarMensagem(mensagem) {
         const sql = 'INSERT INTO public.mensagem (user, texto, grupo) VALUES ($1, $2, $3);';

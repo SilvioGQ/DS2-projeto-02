@@ -11,11 +11,21 @@ class GrupoParticipantes {
 }
 
 class GrupoParticipantesDAO {
-    static async buscaPeloGrupo(grupo) {
-        const sql = 'SELECT * FROM public."grupoParticipantes" where grupo = $1';
+    static async participantesGrupo(grupo) {
+        const sql = `SELECT 
+            "user".id as userId, 
+            "user".nome as nome, 
+            "user".imagem as image,
+            "user".dataregister as userDataregister,
+            "grupoParticipantes".id as partId, 
+            "grupoParticipantes".grupo as grupo, 
+            "grupoParticipantes".dataregister as partDataregister
+        FROM public."grupoParticipantes"
+            JOIN public."user" on public."grupoParticipantes".user = public."user".id
+        WHERE grupo = $1`;
         const result = await dbcon.query(sql, [grupo]);
-        const grupo = result.rows[0];
-        return grupo;
+        const participante = result.rows;
+        return participante;
     }
 
     static async atualizaParticipante(grupo, user) {
