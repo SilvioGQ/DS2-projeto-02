@@ -7,17 +7,17 @@
 
     <%- include('includes/navbar') %>    
 
-    <% if (user) { %>
-      <h1>Bem vind@ <%= user.nome %></h1>
-    <% } %>
-
-    <h1>Lista de todos os filmes</h1>
-
+    <h2 style="margin-left: 20px;">Seus grupos</h2>
+    <div>
     <% if (grupos) { %>
       <% grupos.map(item => { %>
-        <p><%= item.nome %></p>
+        <div style="margin-top: 30px;">
+        <div style="margin-left: 20px; background-image: url('<%- item.imagem %>');" class="imageGroup-<% item.id %>" id="imageGroup" >
+        <p  style="margin-left: 120px; position: absolute; align-self: center;""><%= item.nome %></p>
+      </div>
       <% }); %>
     <% } %>
+  </div>
 
 </body>
 

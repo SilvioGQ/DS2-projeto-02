@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt');
 const { Grupo, GrupoDAO } = require('../models/grupo');
 const { GrupoParticipantesDAO } = require('../models/grupoParticipante');
 const { MensagemDAO } = require('../models/mensagem');
@@ -9,7 +8,7 @@ class GruposController {
         const grupos = await GrupoDAO.exibirParticipa(user.id);
         console.log('grupos ',grupos);
         
-        return res.render('listagem', { user: req.session.user, grupos: grupos });
+        return res.render('listagem', { user: user, grupos: grupos });
     }
 
     async detalhar(req, res) {
