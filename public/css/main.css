@@ -8,10 +8,20 @@
 /* Header */
 header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    box-shadow: 0 1px 8px #ddd;
+    margin-left: 10px;
+    flex-direction: row;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#header-title {
+    margin-left: 10px;
+}
+
+#header-title h1 {
+    color:#fff
 }
 
 #nav-title {
@@ -19,20 +29,8 @@ header {
     font-size: 1.5em;
 }
 
-header li {
-    list-style: none;
-    display: inline-block;
-    padding: 0 20px;
-}
-
-header a {
-    text-decoration: none;
-    color: #555;
-    transition: all 0.3s ease 0s;
-}
-
-header a:hover {
-    color: #04AA6D;
+body {
+    background-color: #23272A;
 }
 
 #filmes {
@@ -59,3 +57,4 @@ header a:hover {
     background-color: #04AA6D;
     color: white;
   }
+  
