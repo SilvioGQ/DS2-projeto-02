@@ -10,27 +10,32 @@
 
     <main id="containerGrid">
         <div id="gridGroup">
-          <h2 style="margin-left: 5%;">Seus grupos</h2>
-          <div>
+          <h3 style="margin-left: 5%;">Seus grupos</h3>
+          <div id="scrollGroup">
             <% if (grupos) { %>
               <% grupos.map(item=> { %>
                 <a href="/grupos/<%= item.grupoid %>/1">
-                  <div style="margin-top: 30px; cursor: pointer;">
+                  <div id="alignCenter" style="margin-top: 30px; cursor: pointer;">
                     <div style="margin-left: 5%; background-image: url('<%- item.imagem %>');"
                       class="imageGroup-<% item.id %>" id="imageGroup">
-                      <p style="margin-left: 100px; margin-top: 30px; position: absolute; align-self: center;""><%= item.nome %></p>
                     </div>
+                    <!-- <p><%= item.nome %></p> -->
                   </div>
                 </a>
             <% }); %>
             <% } %>
           </div>
+          <% if (grupo.admin === user.id) { %>
+            <div onclick="document.getElementById('id02').style.display='block'" id="CreateGroup">Editar Grupo</div>
+            <div onclick="document.getElementById('id02').style.display='block'" id="CreateGroup">Deletar Grupo</div>
+            <% } %>
+          <div onclick="document.getElementById('id02').style.display='block'" id="CreateGroup">Criar Grupo</div>
         </div>
         <div id="gridChat">
             <p><%= grupo.nome %></p>
             <!-- <img src="/assets/chatIcon.svg" style="height: 292px; width: 288px;"> -->
             <!-- <p style="margin-top: 30px; font-size: 1.2rem;">Escolha um grupo para conversar, ou crie um novo!</p> -->
-            <div id="scroll">
+            <div id="scrollMessagens">
             <% if (mensagens) { %>
                 <% mensagens.map(item=> { %>
                     <% if(user.id !== item.user) {  %>
@@ -66,7 +71,7 @@
         </form>
         </div>
         <div id="gridParticipantes">
-            <div style="display:flex;flex:1;flex-direction:column;">
+            <div id="scrollMembers">
             <% if (participantes) { %>
                 <% if(participantes.filter(item => item.tipo == 1).length > 0) {%>
                     <h2>Admin</h2>
@@ -74,7 +79,7 @@
                 <% participantes.map(item => { %>
                     <% if(item.tipo == 1) { %>
                         <div id="alignCenter">
-                            <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 80px; width: 80px;"></div>
+                            <div id="imageGroup" style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; "></div>
                             <p><%= item.nome %></p>
                         </div>
                     <% } %>
@@ -86,7 +91,7 @@
                 <% participantes.map(item => { %>
                     <% if(item.tipo == 2) { %>
                         <div id="alignCenter">
-                            <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 80px; width: 80px;"></div>
+                            <div id="imageGroup" style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; "></div>
                             <p><%= item.nome %></p>
                         </div>
                     <% } %>
@@ -98,15 +103,19 @@
                 <% participantes.map(item => { %>
                     <% if(item.tipo == 3) { %>
                         <div id="alignCenter">
-                            <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 80px; width: 80px;"></div>
+                            <div id="imageGroup" style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; "></div>
                             <p><%= item.nome %></p>
                         </div>
                     <% } %>
                 <% }) %>
             <% } %>
             </div>
+            <% if (grupo.admin === user.id) { %>
+                <div onclick="document.getElementById('id01').style.display='block'" id="CreateGroup">Adicionar membro</div>
+                <% } %>
         </div>
-
+        <%- include('includes/modalGroup') %>   
+        <%- include('includes/modalAddMember') %>   
       </main>
 </body>
 </html>
