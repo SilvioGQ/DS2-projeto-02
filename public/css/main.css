@@ -10,7 +10,6 @@ header {
     display: flex;
     margin-left: 10px;
     padding-top: 15px;
-    padding-bottom: 15px;
 }
 #nav-title {
     margin-right: auto;
@@ -57,4 +56,8 @@ body {
       width: 60px;
       height: 60px;
     }
+}
+a {
+  text-decoration: none;
+  color: white;
 }

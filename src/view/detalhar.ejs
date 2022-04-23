@@ -30,25 +30,50 @@
             <p><%= grupo.nome %></p>
             <!-- <img src="/assets/chatIcon.svg" style="height: 292px; width: 288px;"> -->
             <!-- <p style="margin-top: 30px; font-size: 1.2rem;">Escolha um grupo para conversar, ou crie um novo!</p> -->
+            <div id="scroll">
             <% if (mensagens) { %>
                 <% mensagens.map(item=> { %>
-                    <div>
-                        <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 80px; width: 80px;"></div>
-                        <p><%= item.nome %></p>
-                        <p><%= item.texto %></p>
-                        <p><%= item.data %></p>
-                    </div>
+                    <% if(user.id !== item.user) {  %>
+                        <div id="mensageContainer">
+                            <div id="MessagesIsntOwner">
+                                <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 65px; width: 65px;"></div>
+                                <p style="margin-top: 20px; margin-left:20px"><%= item.nome %> </p>
+                                <p id="time">  <%= item.data.getHours(); %>:<%= item.data.getSeconds(); %> - <%= item.data.getDate(); %>/<%= item.data.getMonth(); %>/<%= item.data.getFullYear(); %></p>
+                            </div>
+                            <p id="message"><%= item.texto %></p>
+                        </div>
+                        <% }; %>
+
+                        <% if(user.id == item.user) {  %>
+                            <div style="width: 100%; display: flex;">
+                                <div id="mensageContainer2">
+                                <p id="message"><%= item.texto %></p>
+                                <div id="MessagesOwner">
+                                    <p id="time">  <%= item.data.getHours(); %>:<%= item.data.getSeconds(); %> - <%= item.data.getDate(); %>/<%= item.data.getMonth(); %>/<%= item.data.getFullYear(); %></p>
+                                </div>
+                            </div>
+                            </div>
+                            <% }; %>
+                    
                 <% }); %>
             <% } %>
         </div>
+        <form action="" id="absoluteInput">
+        <input id="input" name="mensagem" placeholder="Como você está se sentindo">
+        <div style="position: absolute; bottom: 5px; right: 10px;">
+            <img src="/assets/Arrow-right.svg" style="height: 35px; width: 35px; cursor: pointer;">
+        </div>
+        </form>
+        </div>
         <div id="gridParticipantes">
+            <div style="display:flex;flex:1;flex-direction:column;">
             <% if (participantes) { %>
                 <% if(participantes.filter(item => item.tipo == 1).length > 0) {%>
                     <h2>Admin</h2>
                 <% } %>
                 <% participantes.map(item => { %>
                     <% if(item.tipo == 1) { %>
-                        <div>
+                        <div id="alignCenter">
                             <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 80px; width: 80px;"></div>
                             <p><%= item.nome %></p>
                         </div>
@@ -60,7 +85,7 @@
                 <% } %>
                 <% participantes.map(item => { %>
                     <% if(item.tipo == 2) { %>
-                        <div>
+                        <div id="alignCenter">
                             <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 80px; width: 80px;"></div>
                             <p><%= item.nome %></p>
                         </div>
@@ -72,14 +97,16 @@
                 <% } %>
                 <% participantes.map(item => { %>
                     <% if(item.tipo == 3) { %>
-                        <div>
+                        <div id="alignCenter">
                             <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 80px; width: 80px;"></div>
                             <p><%= item.nome %></p>
                         </div>
                     <% } %>
                 <% }) %>
             <% } %>
+            </div>
         </div>
+
       </main>
 </body>
 </html>
