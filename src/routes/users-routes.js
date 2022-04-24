@@ -8,5 +8,6 @@ const usersController = new UsersController();
 routes.post('/cadastrar', usersController.cadastrar);
 
 routes.post('/login', usersController.login);
+routes.get('/logout', usersController.logout);
 
 module.exports = routes;

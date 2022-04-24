@@ -59,12 +59,13 @@ class GrupoDAO {
         }
     }
 
-    static async cadastrar(grupo) {
-        const sql = 'INSERT INTO public.grupo (nome, admin, imagem, dataregister) VALUES ($1, $2, $3, $4);';
-        const values = [grupo.nome, grupo.admin, grupo.imagem, grupo.dataregister];
+    static async cadastrar(nome, admin, imagem) {
+        const sql = 'INSERT INTO public.grupo (nome, admin, imagem) VALUES ($1, $2, $3) returning *';
+        const values = [nome, admin, imagem];
         
         try {
-            await dbcon.query(sql, values);
+            const response = await dbcon.query(sql, values);
+            return response;
         } catch (error) {
             console.log('NAO FOI POSSIVEL INSERIR');
             console.log({ error });

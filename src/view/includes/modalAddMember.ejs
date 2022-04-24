@@ -6,7 +6,7 @@
                 class="w3-button w3-display-topright">&times;</span>
             <div id="column">
                 <p id="loginP">Adicionar Membro</p>
-                <form action="/users/cadastrar" method="post">
+                <form action="/grupos/<%= grupo.id %>/addMember" method="post">
                     <input class="w3-input w3-border w3-margin-bottom" placeholder="email:" name="email" />
                     <select name="tipo" id="">
                         <option value="2">Editor</option>

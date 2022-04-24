@@ -7,7 +7,7 @@
     padding-left: 1vw;
     padding-right: 1vw;
     padding-bottom: 3vh;
-    grid-template-columns: 0.8fr 5fr 1.2fr;
+    grid-template-columns: 1fr 6fr 1fr;
     grid-column-gap: 0.5vw;
 }
 
@@ -69,7 +69,7 @@
  ::-webkit-scrollbar-thumb { border-radius: 5px; background: #d6dee1 } 
  ::-webkit-scrollbar-thumb:hover { background: #d6dee1 }
 
-#mensageContainer{
+.mensageContainer{
     padding: 10px;
     border-radius: 20px;
     background-color: #2D3033;
@@ -78,38 +78,36 @@
     width: 40%;
 }
 
-#mensageContainer2{
-    padding: 10px;
-    border-radius: 20px;
+.owner {
     background-color: #774397;
-    align-items: 'flex-end';
-    justify-content: flex-end;
-    justify-self: flex-end;
-    margin: 15px 3px 15px 3px;
-    width: 40%;
+    align-self: flex-end;
 }
-#MessagesIsntOwner{
+
+.MessagesIsntOwner{
     display: flex;
     margin: 5px 5px 5px 5px;
 }
 
-#MessagesOwner {
+.MessagesOwner {
     display: flex;
     margin: 5px 10px 5px 5px;
     justify-content: flex-end;
 }
-#time{
+.time{
     color: #A4A4A4;
     font-size: 14px;
     font-weight: 100;
     margin-top: 20px;
     margin-left: 15px;
 }
-#message {
+.message {
     color: #B3B3B3;
     margin-top: 10px;
     margin-left: 5px;
     align-self: center;
+    width: 97%;
+    line-break: normal;
+    word-break: break-all;
 }
 
 #alignCenter{
@@ -120,19 +118,33 @@
     margin: 10px 0px 10px 0;
 }
 
-#input{
-    width: 100%;
-    border-radius: 10px;
-    background-color: white;
-    align-self: center;
-    height: 48px;
-    font-size: 16px;
-    padding-left: 10px;
-}
-#absoluteInput {
+.messageInputContainer {
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
     position: absolute;
     bottom: 20px;
     width: 60%;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 16px;
+    height: 48px;
+    padding-left: 10px;
+}
+
+.messageInputContainer button {
+    background-color: transparent;
+    border: none;
+}
+
+.messageInputContainer input {
+    width: 96%;
+    border: none;
+}
+
+.messageInputContainer input:focus {
+    border: none;
+    outline: none;
 }
 
 #CreateGroup{
@@ -145,9 +157,9 @@
     font-size: 15px;
 
 }
-    @media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1400px) {
     #CreateGroup{
-    padding: 5px 15px 5px 15px;
-    font-size: 11px;
-        }
+        padding: 5px 15px 5px 15px;
+        font-size: 11px;
     }
+}

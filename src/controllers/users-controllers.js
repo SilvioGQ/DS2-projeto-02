@@ -30,6 +30,14 @@ class UsersController {
         }
         
     }
+
+    async logout(req, res) {
+        req
+            .session
+            .destroy();
+        return res.redirect('/login.html');
+        
+    }
 }
 
 module.exports = UsersController;

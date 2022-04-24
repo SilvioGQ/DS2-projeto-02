@@ -33,42 +33,46 @@
         </div>
         <div id="gridChat">
             <p><%= grupo.nome %></p>
-            <!-- <img src="/assets/chatIcon.svg" style="height: 292px; width: 288px;"> -->
-            <!-- <p style="margin-top: 30px; font-size: 1.2rem;">Escolha um grupo para conversar, ou crie um novo!</p> -->
-            <div id="scrollMessagens">
-            <% if (mensagens) { %>
-                <% mensagens.map(item=> { %>
-                    <% if(user.id !== item.user) {  %>
-                        <div id="mensageContainer">
-                            <div id="MessagesIsntOwner">
-                                <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 65px; width: 65px;"></div>
-                                <p style="margin-top: 20px; margin-left:20px"><%= item.nome %> </p>
-                                <p id="time">  <%= item.data.getHours(); %>:<%= item.data.getSeconds(); %> - <%= item.data.getDate(); %>/<%= item.data.getMonth(); %>/<%= item.data.getFullYear(); %></p>
-                            </div>
-                            <p id="message"><%= item.texto %></p>
-                        </div>
-                        <% }; %>
 
-                        <% if(user.id == item.user) {  %>
-                            <div style="width: 100%; display: flex;">
-                                <div id="mensageContainer2">
-                                <p id="message"><%= item.texto %></p>
-                                <div id="MessagesOwner">
-                                    <p id="time">  <%= item.data.getHours(); %>:<%= item.data.getSeconds(); %> - <%= item.data.getDate(); %>/<%= item.data.getMonth(); %>/<%= item.data.getFullYear(); %></p>
+            <div id="scrollMessagens">
+                <% if(proxPaginas > page) { %>
+                    <a href="<%= parseInt(page)+1 %>">Ver mais antigas</a>
+                <% } %>
+                <% if (mensagens) { %>
+                    <% mensagens.reverse().map(item=> { %>
+                            <% if(user.id !== item.user) {  %>
+                                <div class="mensageContainer">
+                                    <!-- id = unico do html -->
+                                    <!-- class = coleçao de itens no html -->
+                                    <div class="MessagesIsntOwner">
+                                        <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 65px; width: 65px;"></div>
+                                        <p style="margin-top: 20px; margin-left:20px"><%= item.nome %> </p>
+                                        <p class="time">  <%= item.data.getHours(); %>:<%= item.data.getMinutes(); %> - <%= item.data.getUTCDate(); %>/<%= item.data.getUTCMonth()+1 %>/<%= item.data.getFullYear(); %></p>
+                                    </div>
+                                    <p class="message"><%= item.texto %></p>
                                 </div>
-                            </div>
-                            </div>
                             <% }; %>
-                    
-                <% }); %>
-            <% } %>
-        </div>
-        <form action="" id="absoluteInput">
-        <input id="input" name="mensagem" placeholder="Como você está se sentindo">
-        <div style="position: absolute; bottom: 5px; right: 10px;">
-            <img src="/assets/Arrow-right.svg" style="height: 35px; width: 35px; cursor: pointer;">
-        </div>
-        </form>
+
+                            <% if(user.id == item.user) {  %>
+                                <div class="mensageContainer owner">
+                                    <p class="message"><%= item.texto %></p>
+                                    <div class="MessagesOwner">
+                                        <p class="time">  <%= item.data.getHours(); %>:<%= item.data.getMinutes(); %> - <%= item.data.getUTCDate(); %>/<%= item.data.getUTCMonth()+1 %>/<%= item.data.getFullYear(); %></p>
+                                    </div>
+                                </div>
+                            <% }; %>    
+                    <% }); %>
+                <% } %>
+                </div>
+                <% if(page > 1) { %>
+                    <a href="<%= parseInt(page)-1 %>">Ver mais novas</a>
+                <% } %>
+                <form action="/grupos/<%= grupo.id %>/enviarMensagem" method="post" class="messageInputContainer">
+                    <input id="input" name="mensagem" placeholder="Como você está se sentindo">
+                    <button type="submit" style="bottom: 5px; right: 10px; align-items: center;">
+                        <img src="/assets/Arrow-right.svg" style="height: 30px; width: 30px; cursor: pointer;">
+                    </button>
+                </form>
         </div>
         <div id="gridParticipantes">
             <div id="scrollMembers">
@@ -112,10 +116,15 @@
             </div>
             <% if (grupo.admin === user.id) { %>
                 <div onclick="document.getElementById('id01').style.display='block'" id="CreateGroup">Adicionar membro</div>
-                <% } %>
+            <% } %>
         </div>
-        <%- include('includes/modalGroup') %>   
+        <%- include('includes/modalGroup') %>
         <%- include('includes/modalAddMember') %>   
       </main>
+
+      <script>
+        var objDiv = document.getElementById("scrollMessagens");
+        objDiv.scrollTop = objDiv.scrollHeight;
+      </script>
 </body>
 </html>

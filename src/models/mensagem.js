@@ -18,22 +18,29 @@ class MensagemDAO {
         return user;
     }
 
+    static async qtdMensagens(grupo) {
+        const sql = 'SELECT count(*) as qtd FROM mensagem where grupo = $1';
+        const result = await dbcon.query(sql, [grupo]);
+        const qtdMsg = result.rows[0].qtd;
+        return qtdMsg;
+    }
+
     static async mensagensGrupo(grupo, page) {
         const sql = `SELECT * FROM public.mensagem
                 JOIN public."user" on public.mensagem.user = public."user".id
             WHERE 
                 grupo = $1
-            ORDER BY DATA DESC
+            ORDER BY public.mensagem.DATA DESC
             LIMIT 10
             OFFSET $2`;
-        const result = await dbcon.query(sql, [grupo, ((page*10)-10)]);
+        const result = await dbcon.query(sql, [grupo, (page == 1 ? 0 : (page*10)-10 )]);
         const mensagens = result.rows;
         return mensagens;
     }
 
-    static async enviarMensagem(mensagem) {
-        const sql = 'INSERT INTO public.mensagem (user, texto, grupo) VALUES ($1, $2, $3);';
-        const values = [mensagem.user, mensagem.texto, user.grupo];
+    static async enviarMensagem(user, texto, grupo) {
+        const sql = 'INSERT INTO public.mensagem ("user", texto, grupo) VALUES ($1, $2, $3)';
+        const values = [user, texto, grupo];
         
         try {
             await dbcon.query(sql, values);

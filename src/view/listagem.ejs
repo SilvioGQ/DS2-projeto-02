@@ -9,24 +9,22 @@
     <%- include('includes/navbar') %>
       <main id="containerGrid">
         <div id="gridGroup">
-          <h2 style="margin-left: 5%;">Seus grupos</h2>
-          <div>
+          <h3 style="margin-left: 5%;">Seus grupos</h3>
+          <div id="scrollGroup">
             <% if (grupos) { %>
               <% grupos.map(item=> { %>
                 <a href="grupos/<%= item.grupoid %>/1">
                   <div style="margin-top: 30px; cursor: pointer;">
                     <div style="margin-left: 5%; background-image: url('<%- item.imagem %>');"
                       class="imageGroup-<% item.id %>" id="imageGroup">
-                      <p style="margin-left: 100px; margin-top: 30px; position: absolute; align-self: center;"">
-                        <%= item.grupoid %>
-                        <%= item.nome %>
-                      </p>
                     </div>
                   </div>
                 </a>
             <% }); %>
             <% } %>
           </div>
+          <div onclick="document.getElementById('id02').style.display='block'" id="CreateGroup">Criar Grupo</div>
+          <%- include('includes/modalGroup') %>
         </div>
         <div id="gridChat">
             <img src="/assets/chatIcon.svg" style="height: 292px; width: 288px;">

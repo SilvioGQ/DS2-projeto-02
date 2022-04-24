@@ -16,10 +16,8 @@ const middlewareParticipant = (req, res, next) => {
         const getGrupos = async () => {
             let grupos = await GrupoDAO.exibirParticipa(user.id);
             if(grupos.find(item => item.id == id)){
-                console.log('Está no grupo ',grupos);
                 next();
             } else {
-                console.log('Está no grupo ',grupos);
                 res.redirect('/grupos');
             }
         }
@@ -27,4 +25,38 @@ const middlewareParticipant = (req, res, next) => {
     } else res.redirect('/login.html');
 };
 
-module.exports = { middlewareUser, middlewareParticipant };
+const middlewareGroupAdminWriter = (req, res, next) => {
+    const user = req.session.user;
+    const { id } = req.params;
+
+    if(user){
+        const getGrupos = async () => {
+            let grupos = await GrupoDAO.exibirParticipa(user.id);
+            if(grupos.find(item => item.id == id && (item.tipo == 1 || item.tipo == 2))){
+                next();
+            } else {
+                res.redirect('/grupos');
+            }
+        }
+        getGrupos();
+    } else res.redirect('/login.html');
+};
+
+const middlewareGroupAdmin = (req, res, next) => {
+    const user = req.session.user;
+    const { id } = req.params;
+
+    if(user){
+        const getGrupos = async () => {
+            let grupos = await GrupoDAO.exibirParticipa(user.id);
+            if(grupos.find(item => item.id == id && item.tipo == 1)){
+                next();
+            } else {
+                res.redirect('/grupos');
+            }
+        }
+        getGrupos();
+    } else res.redirect('/login.html');
+};
+
+module.exports = { middlewareUser, middlewareParticipant, middlewareGroupAdmin, middlewareGroupAdminWriter };

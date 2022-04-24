@@ -59,11 +59,12 @@ class GrupoParticipantesDAO {
     }
 
     static async adicionarUser(user, grupo, tipo) {
-        const sql = 'INSERT INTO public."grupoParticipantes" (user, grupo, tipo) VALUES ($1, $2, $3);';
+        const sql = 'INSERT INTO public."grupoParticipantes" ("user", grupo, tipo) VALUES ($1, $2, $3);';
         const values = [user, grupo, tipo];
         
         try {
-            await dbcon.query(sql, values);
+            const response = await dbcon.query(sql, values);
+            return response;
         } catch (error) {
             console.log('NAO FOI POSSIVEL INSERIR');
             console.log({ error });
