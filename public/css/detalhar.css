@@ -6,21 +6,93 @@
     ;
     padding-left: 1vw;
     padding-right: 1vw;
-    padding-bottom: 3vh;
+    padding-bottom: 1vh;
     grid-template-columns: 1fr 6fr 1fr;
     grid-column-gap: 0.5vw;
+    height: 90vh;
 }
 
 #gridChat {
     grid-area: chat;
-    display: flex;
+    display: grid;
+    grid-template-areas: 
+                         "header        header      "
+                         "mensagens     mensagens   "
+                         "messageinput  messageinput"
+    ;
+    grid-template-columns: 1fr 1fr;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding-left: 1vw;
     padding-right: 1vw;
-    margin-top: 5vh;
-    height: 80vh;
+    height: 85vh;    
+}
+
+.linkPaginationWrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.linkPagination {
+    border: 1px solid #774397;
+    color: #774397;
+    border-radius: 5px;
+    width: 10%;
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.groupHeaders {
+    grid-area: header;
+}
+
+.groupMensagens {
+    grid-area: mensagens;
+}
+
+.participantContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    justify-self: start;
+    justify-content: space-between;
+    transition: all ease 0.2s;
+    margin-bottom: 5%;
+}
+
+.participantInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.participantImg {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    background-position: center; 
+    background-size: cover; 
+    border-radius: 50px;
+    /* margin-right: 10%; */
+}
+
+.participantName {
+    width: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media only screen and (max-width: 1400px) {
+  .participantContainer {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 #gridGroup {
@@ -118,6 +190,12 @@
     margin: 10px 0px 10px 0;
 }
 
+.notificationText {
+    color: #774397;
+    font-style: italic;
+    margin-top: 1%;
+}
+
 .buttonRemove {
     padding: 3px 5px 3px 5px;
     background-color: red;
@@ -127,12 +205,13 @@
 }
 
 .messageInputContainer {
+    grid-area: messageinput;
     display: flex; 
     flex-direction: row; 
     align-items: center;
-    position: absolute;
-    bottom: 20px;
-    width: 60%;
+    justify-self: center;
+    /* position: absolute; */
+    width: 90%;
     border-radius: 10px;
     background-color: white;
     font-size: 16px;
@@ -146,13 +225,22 @@
 }
 
 .messageInputContainer input {
-    width: 96%;
+    width: 100%;
     border: none;
 }
 
 .messageInputContainer input:focus {
     border: none;
     outline: none;
+}
+
+.buttonform {
+    display: flex;
+    justify-content: center;
+}
+
+.selectedGroup {
+    border: 2px #774397 solid;
 }
 
 #CreateGroup{
@@ -163,8 +251,8 @@
     background-color: #774397;
     border-radius: 10px;
     font-size: 15px;
-
 }
+
 @media only screen and (max-width: 1400px) {
     #CreateGroup{
         padding: 5px 15px 5px 15px;

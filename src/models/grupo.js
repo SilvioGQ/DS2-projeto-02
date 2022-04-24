@@ -19,8 +19,13 @@ class GrupoDAO {
     }
 
     static async exibirParticipa(user) {
-        const sql = `SELECT public.grupo.id as grupoId, * FROM public."grupoParticipantes"
+        const sql = `
+        SELECT public.grupo.id as grupoId, * FROM public."grupoParticipantes"
             JOIN public.grupo on public.grupo.id = public."grupoParticipantes".grupo
+			LEFT JOIN (
+                SELECT public.grupo.id as groupId, count(*) as qtdUsers FROM public.grupo
+					JOIN public."grupoParticipantes" on public.grupo.id = public."grupoParticipantes".grupo
+				GROUP BY public.grupo.id) as qtdQuery on qtdQuery.groupId = public.grupo.id
         WHERE 
             public."grupoParticipantes".user = $1`;
         const result = await dbcon.query(sql, [user]);

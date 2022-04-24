@@ -49,6 +49,7 @@ class GruposController {
         const memberExist = await UserDAO.buscaPeloEmail(email);
         if(memberExist){
             const addMember = await GrupoParticipantesDAO.adicionarUser(memberExist.id, id, tipo);
+            const response = await MensagemDAO.enviarNotificacao(user.id, `${user.nome} adicionou ${memberExist.nome}`, id);
             return res.redirect(`/grupos/${id}/1`);
         } else {
             return res.send('Usuario não existe');
@@ -65,11 +66,13 @@ class GruposController {
         return res.redirect(`/grupos/${id}/1`);
     }
     async removeFromGroup (req, res) {
+        const user = req.session.user;
         const { userId } = req.body;
         const { id } = req.params;
-        console.log(userId)
+        const memberInfo = await UserDAO.buscaPeloId(userId);
 
         const response = await GrupoParticipantesDAO.removerParticipante(id, userId);
+        const response2 = await MensagemDAO.enviarNotificacao(user.id, `${user.nome} removeu ${memberInfo.nome}`, id);
         return res.redirect(`/grupos/${id}/1`);
     }
     async exitGroup (req, res) {

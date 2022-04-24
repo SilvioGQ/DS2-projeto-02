@@ -38,6 +38,8 @@ class UsersController {
         return res.redirect('/login.html');
         
     }
+
+    as
 }
 
 module.exports = UsersController;

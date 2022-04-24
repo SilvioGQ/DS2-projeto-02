@@ -50,6 +50,19 @@ class MensagemDAO {
             return false;
         }
     }
+
+    static async enviarNotificacao(user, texto, grupo) {
+        const sql = 'INSERT INTO public.mensagem ("user", texto, grupo, isnotification) VALUES ($1, $2, $3, true)';
+        const values = [user, texto, grupo];
+        
+        try {
+            await dbcon.query(sql, values);
+        } catch (error) {
+            console.log('NAO FOI POSSIVEL INSERIR');
+            console.log({ error });
+            return false;
+        }
+    }
 }
 
 module.exports = {
