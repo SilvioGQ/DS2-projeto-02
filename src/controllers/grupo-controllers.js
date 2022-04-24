@@ -21,9 +21,7 @@ class GruposController {
         const qtdMsgs = await MensagemDAO.qtdMensagens(id);
         const proxPaginas = qtdMsgs/10;
 
-        console.log('grupos ',grupos);
-        console.log('grupo ',grupo);
-        console.log('mensagens ',mensagens);
+        console.log('participantes',participantes);
         
         return res.render('detalhar', { 
             user: req.session.user, 
@@ -65,6 +63,27 @@ class GruposController {
 
         const response = await MensagemDAO.enviarMensagem(user.id, mensagem, id);
         return res.redirect(`/grupos/${id}/1`);
+    }
+    async removeFromGroup (req, res) {
+        const { userId } = req.body;
+        const { id } = req.params;
+        console.log(userId)
+
+        const response = await GrupoParticipantesDAO.removerParticipante(id, userId);
+        return res.redirect(`/grupos/${id}/1`);
+    }
+    async exitGroup (req, res) {
+        const { userId } = req.body;
+        const { id } = req.params;
+        console.log(userId)
+
+        const response = await GrupoParticipantesDAO.removerParticipante(id, userId);
+        return res.redirect(`/grupos`);
+    }
+    async deleteGroup (req, res) {
+        const { id } = req.params;
+        const response = await GrupoDAO.deleta(id);
+        return res.redirect(`/grupos`);
     }
 }
 

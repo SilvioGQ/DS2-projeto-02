@@ -72,6 +72,18 @@ class GrupoDAO {
             return false;
         }
     }
+    static async deleta(grupo) {
+        const sql = `delete from public."grupo" where id = $1`;
+        const values = [grupo];
+
+        try {
+            await dbcon.query(sql, values);
+        } catch (error) {
+            console.log('NAO FOI POSSIVEL EXCLUIR');
+            console.log({ error });
+            return false;
+        }
+    }
 }
 
 module.exports = {

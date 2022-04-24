@@ -16,6 +16,12 @@ routes.get('/:id/:page', middlewareParticipant, gruposController.detalhar);
 
 routes.post('/:id/enviarMensagem', middlewareGroupAdminWriter, gruposController.sendMessage);
 
+routes.post('/:id/removeMember', middlewareGroupAdmin, gruposController.removeFromGroup);
+
+routes.post('/:id/exitGroup', middlewareParticipant, gruposController.exitGroup);
+
+routes.post('/:id/deleteGroup', middlewareGroupAdmin, gruposController.deleteGroup);
+
 routes.post('/:id/addMember', middlewareGroupAdmin, gruposController.addMember);
 
 // routes.post('/', gruposController.cadastrar);

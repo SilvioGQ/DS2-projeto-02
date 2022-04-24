@@ -27,18 +27,20 @@
           </div>
           <% if (grupo.admin === user.id) { %>
             <div onclick="document.getElementById('id02').style.display='block'" id="CreateGroup">Editar Grupo</div>
-            <div onclick="document.getElementById('id02').style.display='block'" id="CreateGroup">Deletar Grupo</div>
+            <form action="/grupos/<%= grupo.id %>/deleteGroup" method="post">
+                <button type="submit" id="CreateGroup">Deletar Grupo</button>
+            </form>
             <% } %>
           <div onclick="document.getElementById('id02').style.display='block'" id="CreateGroup">Criar Grupo</div>
         </div>
         <div id="gridChat">
-            <p><%= grupo.nome %></p>
+            <p class="GroupName"><%= grupo.nome %></p>
 
             <div id="scrollMessagens">
                 <% if(proxPaginas > page) { %>
                     <a href="<%= parseInt(page)+1 %>">Ver mais antigas</a>
                 <% } %>
-                <% if (mensagens) { %>
+                <% if (mensagens.length > 0) { %>
                     <% mensagens.reverse().map(item=> { %>
                             <% if(user.id !== item.user) {  %>
                                 <div class="mensageContainer">
@@ -62,17 +64,23 @@
                                 </div>
                             <% }; %>    
                     <% }); %>
-                <% } %>
+                <% }  else { %>
+                    <div class="noMessages">
+                        <p align="center">Não foram postadas mensagens!</p>
+                    </div>
+                    <% } %>
                 </div>
                 <% if(page > 1) { %>
                     <a href="<%= parseInt(page)-1 %>">Ver mais novas</a>
                 <% } %>
+                <%  if(participantes.find(item => item.userid == user.id).tipo === 2 || participantes.find(item => item.userid == user.id).tipo === 1) { %>
                 <form action="/grupos/<%= grupo.id %>/enviarMensagem" method="post" class="messageInputContainer">
                     <input id="input" name="mensagem" placeholder="Como você está se sentindo">
                     <button type="submit" style="bottom: 5px; right: 10px; align-items: center;">
                         <img src="/assets/Arrow-right.svg" style="height: 30px; width: 30px; cursor: pointer;">
                     </button>
                 </form>
+                <% } %>
         </div>
         <div id="gridParticipantes">
             <div id="scrollMembers">
@@ -97,6 +105,11 @@
                         <div id="alignCenter">
                             <div id="imageGroup" style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; "></div>
                             <p><%= item.nome %></p>
+                            <% if(grupo.admin == user.id) { %>
+                                <form action="/grupos/<%= grupo.id %>/removeMember" method="post">
+                                    <button class="buttonRemove" name="userId" value="<%= item.userid %>" type="submit">X</button>
+                                </form>
+                                <% } %>
                         </div>
                     <% } %>
                 <% }) %>
@@ -109,6 +122,11 @@
                         <div id="alignCenter">
                             <div id="imageGroup" style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; "></div>
                             <p><%= item.nome %></p>
+                            <% if(grupo.admin == user.id) { %>
+                                <form action="/grupos/<%= grupo.id %>/removeMember" method="post">
+                                    <button class="buttonRemove" name="userId" value="<%= item.userid %>" type="submit">X</button>
+                                </form>
+                                <% } %>
                         </div>
                     <% } %>
                 <% }) %>
@@ -116,6 +134,10 @@
             </div>
             <% if (grupo.admin === user.id) { %>
                 <div onclick="document.getElementById('id01').style.display='block'" id="CreateGroup">Adicionar membro</div>
+            <% } %>
+            <% if (grupo.admin !== user.id) { %>
+                <form action="/grupos/<%= grupo.id %>/exitGroup" method="post">
+                <button id="CreateGroup" name="userId" value="<%= user.id %>" type="submit">Sair do Grupo</button>
             <% } %>
         </div>
         <%- include('includes/modalGroup') %>

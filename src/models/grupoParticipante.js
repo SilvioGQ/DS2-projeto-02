@@ -46,7 +46,7 @@ class GrupoParticipantesDAO {
     }
 
     static async removerParticipante(grupo, user) {
-        const sql = `delete from public."grupoParticipantes" where grupo = $1 and user = $2`;
+        const sql = `delete from public."grupoParticipantes" where grupo = $1 and "user" = $2`;
         const values = [grupo, user];
 
         try {

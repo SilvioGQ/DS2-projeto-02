@@ -68,3 +68,7 @@ a {
   align-items: center;
   scroll-behavior: smooth;
 }
+
+button {
+  color: white;
+}
