@@ -30,8 +30,10 @@ página) de Grupos (nome do grupo + quantidade de membros);
 4. (1,0) O usuário pode criar um grupo de usuários (tem nome e mensagens), o qual
 ele é ADMIN
     FEITO
+    NA PÁGINA INICIAL N FUNFA
 5. (1,0) O ADMIN do grupo pode adicionar outros membros, associando uma Permissão de escrita ou leitura no grupo, informando o email do usuário. Mostrando uma mensagem de sucesso ou erro caso o usuário não exista.
     FALTA MOSTRAR MENSAGEM
+    DELETAR GRUPO N TÁ FUNCIONANDO
 6. (1,0) O usuário administrador e usuários com permissão de escrita podem submeter
 mensagens no grupo.
     FEITO
