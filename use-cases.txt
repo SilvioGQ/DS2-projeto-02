@@ -31,7 +31,7 @@ página) de Grupos (nome do grupo + quantidade de membros);
 ele é ADMIN
     FEITO
 5. (1,0) O ADMIN do grupo pode adicionar outros membros, associando uma Permissão de escrita ou leitura no grupo, informando o email do usuário. Mostrando uma mensagem de sucesso ou erro caso o usuário não exista.
-    FALTA MOSTRAR MENSAGEM
+    FALTA
 6. (1,0) O usuário administrador e usuários com permissão de escrita podem submeter
 mensagens no grupo.
     FEITO

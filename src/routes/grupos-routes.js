@@ -6,27 +6,16 @@ const routes = Router();
 
 const gruposController = new GruposController();
 
-routes.post('/cadastrar', middlewareUser, gruposController.cadastrar);
-
-// routes.get('/deletar/:id', gruposController.deletar);
-
 routes.get('/', middlewareUser, gruposController.listagem);
 
-routes.get('/:id/:page', middlewareParticipant, gruposController.detalhar);
-
-routes.post('/:id/enviarMensagem', middlewareGroupAdminWriter, gruposController.sendMessage);
-
-routes.post('/:id/removeMember', middlewareGroupAdmin, gruposController.removeFromGroup);
-
-routes.post('/:id/exitGroup', middlewareParticipant, gruposController.exitGroup);
-
+routes.post('/cadastrar', middlewareUser, gruposController.cadastrar);
 routes.post('/:id/deleteGroup', middlewareGroupAdmin, gruposController.deleteGroup);
 
+routes.get('/:id/:page', middlewareParticipant, gruposController.detalhar);
+routes.post('/:id/enviarMensagem', middlewareGroupAdminWriter, gruposController.sendMessage);
+
 routes.post('/:id/addMember', middlewareGroupAdmin, gruposController.addMember);
-
-// routes.post('/', gruposController.cadastrar);
-
-// routes.get('/alterar/:id', gruposController.mostraAlterar);
-// routes.post('/alterar/:id', gruposController.alterar);
+routes.post('/:id/removeMember', middlewareGroupAdmin, gruposController.removeFromGroup);
+routes.post('/:id/exitGroup', middlewareParticipant, gruposController.exitGroup);
 
 module.exports = routes;

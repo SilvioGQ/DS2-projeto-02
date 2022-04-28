@@ -78,11 +78,14 @@ class GrupoDAO {
         }
     }
     static async deleta(grupo) {
-        const sql = `delete from public."grupo" where id = $1`;
+        const deleteUsers = `delete from public."grupoParticipantes" where grupo = $1`;
+        const deleteGroup = `delete from public."grupo" where id = $1`;
         const values = [grupo];
 
         try {
-            await dbcon.query(sql, values);
+            const response1 = await dbcon.query(deleteUsers, values);
+            const response2 = await dbcon.query(deleteGroup, values);
+            return response2;
         } catch (error) {
             console.log('NAO FOI POSSIVEL EXCLUIR');
             console.log({ error });

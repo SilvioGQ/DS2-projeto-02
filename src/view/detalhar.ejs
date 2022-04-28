@@ -101,7 +101,7 @@
 
             <%  if(participantes.find(item => item.userid == user.id).tipo === 2 || participantes.find(item => item.userid == user.id).tipo === 1) { %>
                 <form action="/grupos/<%= grupo.id %>/enviarMensagem" method="post" class="messageInputContainer">
-                    <input id="input" name="mensagem" placeholder="Como você está se sentindo">
+                    <input id="input" name="mensagem" placeholder="Como você está se sentindo" maxlength="1000">
                     <button type="submit" style="margin-right: 10px; align-items: center;">
                         <img src="/assets/Arrow-right.svg" style="height: 30px; width: 30px; cursor: pointer;">
                     </button>
@@ -191,6 +191,10 @@
             let element = document.getElementById('groupName'+id);
             element.style.display = 'none';
         }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('error');
+        if(myParam == 'user-not-found') alert('Usuário não existe!');
       </script>
 </body>
 </html>
