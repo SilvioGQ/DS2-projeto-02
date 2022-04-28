@@ -42,6 +42,15 @@ class GruposController {
         return res.redirect('/grupos');
     }
 
+    async sendMessage (req, res) {
+        const user = req.session.user;
+        const { mensagem } = req.body;
+        const { id } = req.params;
+
+        const response = await MensagemDAO.enviarMensagem(user.id, mensagem, id);
+        return res.redirect(`/grupos/${id}/1`);
+    }
+
     async addMember(req, res) {
         const user = req.session.user;
         const { email, tipo } = req.body;
@@ -52,19 +61,10 @@ class GruposController {
             const response = await MensagemDAO.enviarNotificacao(user.id, `${user.nome} adicionou ${memberExist.nome}`, id);
             return res.redirect(`/grupos/${id}/1`);
         } else {
-            return res.send('Usuario não existe');
+            return res.redirect(`/grupos/${id}/1?error=user-not-found`);
         }
     }
 
-    async sendMessage (req, res) {
-        const user = req.session.user;
-        const { mensagem } = req.body;
-        const { id } = req.params;
-        // console.log(`mensagem ${mensagem} - user ${user.id} - grupo ${id}`);
-
-        const response = await MensagemDAO.enviarMensagem(user.id, mensagem, id);
-        return res.redirect(`/grupos/${id}/1`);
-    }
     async removeFromGroup (req, res) {
         const user = req.session.user;
         const { userId } = req.body;
@@ -75,6 +75,7 @@ class GruposController {
         const response2 = await MensagemDAO.enviarNotificacao(user.id, `${user.nome} removeu ${memberInfo.nome}`, id);
         return res.redirect(`/grupos/${id}/1`);
     }
+
     async exitGroup (req, res) {
         const { userId } = req.body;
         const { id } = req.params;
@@ -83,6 +84,7 @@ class GruposController {
         const response = await GrupoParticipantesDAO.removerParticipante(id, userId);
         return res.redirect(`/grupos`);
     }
+
     async deleteGroup (req, res) {
         const { id } = req.params;
         const response = await GrupoDAO.deleta(id);
