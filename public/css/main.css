@@ -14,6 +14,7 @@
 body {
     background-color: #23272A;
     color: white;
+    font-size: 50%;
 }
 
 #filmes {
@@ -54,9 +55,16 @@ body {
     height: 60px;
   }
 }
+@media only screen and (max-width: 850px) {
+  #imageGroup {
+    width: 30px;
+    height: 30px;
+  }
+}
 a {
   text-decoration: none;
   color: white;
+  font-size: 15px;
 }
 
 #scrollGroup{

@@ -68,8 +68,8 @@
                                             <!-- id = unico do html -->
                                             <!-- class = coleçao de itens no html -->
                                             <div class="MessagesIsntOwner">
-                                                <div style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; height: 65px; width: 65px;"></div>
-                                                <p style="margin-top: 20px; margin-left:20px"><%= item.nome %> </p>
+                                                <div class="MessagePhoto" style="background-image: url('<%= item.imagem %>'); background-position: center; background-size: cover; border-radius: 50px; "></div>
+                                                <p class="MessagePhotoName"><%= item.nome %> </p>
                                                 <p class="time">  <%= item.data.getHours(); %>:<%= item.data.getMinutes(); %> - <%= item.data.getUTCDate(); %>/<%= item.data.getUTCMonth()+1 %>/<%= item.data.getFullYear(); %></p>
                                             </div>
                                             <p class="message"><%= item.texto %></p>
