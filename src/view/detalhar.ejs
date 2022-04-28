@@ -12,6 +12,7 @@
         <div id="gridGroup">
           <h3 style="margin-left: 5%;">Seus grupos</h3>
           <div id="scrollGroup">
+            
             <% if (grupos) { %>
                 <% grupos.map(item=> { %>
                     <a href="/grupos/<%= item.grupoid %>/1" onmouseenter="showName('<%= item.grupoid %>')" onmouseleave="hideName('<%= item.grupoid %>')">
@@ -47,6 +48,7 @@
         <div id="gridChat">
             <div class="groupHeaders">
                 <p class="GroupName"><%= grupo.nome %></p>
+                <div onclick="if(document.getElementById('gridParticipantes').style.display=='block') document.getElementById('gridParticipantes').style.display='none';else document.getElementById('gridParticipantes').style.display='block'"><p>Abrir e Fechar participantes</p></div>
             </div>
 
             <div class="groupMensagens">
@@ -108,8 +110,7 @@
                 </form>
             <% } %>
         </div>
-
-        <div id="gridParticipantes">
+        <div style="display: block;" id="gridParticipantes">
             <div id="scrollMembers">
             <% if (participantes) { %>
                 <% if(participantes.filter(item => item.tipo == 1).length > 0) {%>
